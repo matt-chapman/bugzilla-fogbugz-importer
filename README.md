@@ -7,6 +7,8 @@ It is fairly barebones, but it does work quite well.
 ##How do I use it?
 This script has the following dependencies:
 
+**Python 2.7** - **The fogbugz.py library is written for 2.7, so this script has been also.**
+
 *fogbugz.py* - FogBugz python library for their (awesome) XML API.
 
 *tdqm.py* - For the pretty progress bar
