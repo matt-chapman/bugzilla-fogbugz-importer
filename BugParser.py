@@ -82,23 +82,23 @@ if doSubmission:
             comments = 'No comments.'
 
         # submit the bug
-        #        response = fb.new(
-        #            sProject=bug.project,
-        #            sTitle=bug.name,
-        #            sEvent='Imported from Bugzilla. Original Bug ID: ' + bug.id + '\n\nOriginal comments: \n\n'
-        #                                                                          '====================\n\n' + comments,
-        #            sPersonAssignedTo=bug.assignee,
-        #            ixStatus=bug.fogStatus,
-        #            ixPriority=bug.priority
-        #        )
+        response = fb.new(
+                    sProject=bug.project,
+                    sTitle=bug.name,
+                    sEvent='Imported from Bugzilla. Original Bug ID: ' + bug.id + '\n\nOriginal comments: \n\n'
+                                                                                  '====================\n\n' + comments,
+                    sPersonAssignedTo=bug.assignee,
+                    ixStatus=bug.fogStatus,
+                    ixPriority=bug.priority
+                    )
 
         # if the current bug is resolved, attempt to resolve and close the last submitted bug
-# if bug.status == 'RESOLVED':
-#            try:
-#                fb.resolve(ixBug=response.case['ixbug'], ixStatus=bug.fogStatus)
-#                fb.close(ixBug=response.case['ixbug'])
-#            except fogbugz.FogBugzAPIError:
-#                print 'API error'
+        if bug.status == 'RESOLVED':
+            try:
+                fb.resolve(ixBug=response.case['ixbug'], ixStatus=bug.fogStatus)
+                fb.close(ixBug=response.case['ixbug'])
+            except fogbugz.FogBugzAPIError:
+                print 'API error'
 
 # print out some general info on completion
 print ('Processed ' + str(len(bugList.bugs)) + ' bugs...\n')
