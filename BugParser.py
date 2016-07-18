@@ -1,13 +1,14 @@
 import xml.etree.ElementTree as ET
 
 import fogbugz
+from tqdm import tqdm
 
 import FbSettings
 from Bug import Bug, Comment, BugList
 
 # should we submit to the DB?
 doSubmission = True
-printDebug = True
+printDebug = False
 
 parser = ET.XMLParser()
 # deal correctly with bad elements
@@ -65,16 +66,13 @@ for currentbug in root.iter('bug'):
 if doSubmission:
     iterator = 1
 
-    for bug in bugList.bugs:
+    # log into the API
+    fb = fogbugz.FogBugz(FbSettings.URL, FbSettings.TOKEN)
 
-        # print progress
-        print 'Processing Bug ' + str(iterator) + ' of ' + str(len(bugList.bugs)) + '...'
+    for bug in tqdm(bugList.bugs):
 
         iterator += 1
         comments = ''
-
-        # log into the API
-        fb = fogbugz.FogBugz(FbSettings.URL, FbSettings.TOKEN)
 
         # concat all the comments together
         if len(bug.comments) > 0:
@@ -84,30 +82,30 @@ if doSubmission:
             comments = 'No comments.'
 
         # submit the bug
-        response = fb.new(
-            sProject=bug.project,
-            sTitle=bug.name,
-            sEvent='Imported from Bugzilla. Original Bug ID: ' + bug.id + '\n\nOriginal comments: \n\n'
-                                                                          '====================\n\n' + comments,
-            sPersonAssignedTo=bug.assignee,
-            ixStatus=bug.fogStatus,
-            ixPriority=bug.priority
-        )
+        #        response = fb.new(
+        #            sProject=bug.project,
+        #            sTitle=bug.name,
+        #            sEvent='Imported from Bugzilla. Original Bug ID: ' + bug.id + '\n\nOriginal comments: \n\n'
+        #                                                                          '====================\n\n' + comments,
+        #            sPersonAssignedTo=bug.assignee,
+        #            ixStatus=bug.fogStatus,
+        #            ixPriority=bug.priority
+        #        )
 
         # if the current bug is resolved, attempt to resolve and close the last submitted bug
-        if bug.status == 'RESOLVED':
-            try:
-                fb.resolve(ixBug=response.case['ixbug'], ixStatus=bug.fogStatus)
-                fb.close(ixBug=response.case['ixbug'])
-            except fogbugz.FogBugzAPIError:
-                print 'API error'
+# if bug.status == 'RESOLVED':
+#            try:
+#                fb.resolve(ixBug=response.case['ixbug'], ixStatus=bug.fogStatus)
+#                fb.close(ixBug=response.case['ixbug'])
+#            except fogbugz.FogBugzAPIError:
+#                print 'API error'
 
 # print out some general info on completion
-print 'Processed ' + str(len(bugList.bugs)) + ' bugs...\n'
-print 'Covering ' + str(len(bugList.projects)) + ' projects:'
+print ('Processed ' + str(len(bugList.bugs)) + ' bugs...\n')
+print ('Covering ' + str(len(bugList.projects)) + ' projects:')
 for project in bugList.projects:
-    print project
-print '\n'
-print 'Assigned to ' + str(len(bugList.users)) + ' users:'
+    print (project)
+print ('\n')
+print ('Assigned to ' + str(len(bugList.users)) + ' users:')
 for user in bugList.users:
-    print user
+    print (user)
