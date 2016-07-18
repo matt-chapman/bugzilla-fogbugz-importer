@@ -1,0 +1,3 @@
+URL = "YOUR FOGBUGZ URL"  # path to your FogBugz URL
+TOKEN = "YOUR FOGBUGZ API KEY"  # your FogBugz XML API Token
+PATH = "PATH TO YOUR XML EXPORT"
