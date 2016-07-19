@@ -64,7 +64,7 @@ for currentbug in root.iter('bug'):
 
 # only do bug submission to the DB if it is enabled
 if doSubmission:
-    iterator = 1
+    iterator = 0
 
     # log into the API
     fb = fogbugz.FogBugz(FbSettings.URL, FbSettings.TOKEN)
@@ -82,15 +82,19 @@ if doSubmission:
             comments = 'No comments.'
 
         # submit the bug
-        response = fb.new(
-                    sProject=bug.project,
-                    sTitle=bug.name,
-                    sEvent='Imported from Bugzilla. Original Bug ID: ' + bug.id + '\n\nOriginal comments: \n\n'
-                                                                                  '====================\n\n' + comments,
-                    sPersonAssignedTo=bug.assignee,
-                    ixStatus=bug.fogStatus,
-                    ixPriority=bug.priority
-                    )
+        try:
+            response = fb.new(
+                        sProject=bug.project,
+                        sTitle=bug.name,
+                        sEvent='Imported from Bugzilla. Original Bug ID: ' + bug.id + '\n\nOriginal comments: \n\n'
+                                                                                      '====================\n\n' + comments,
+                        sPersonAssignedTo=bug.assignee,
+                        ixStatus=bug.fogStatus,
+                        ixPriority=bug.priority
+                        )
+        except fogbugz.FogBugzAPIError:
+            print 'An API error has occurred, submitting bug with bugzilla ID ' + bug.id + '.'
+            break   # break on API errors
 
         # if the current bug is resolved, attempt to resolve and close the last submitted bug
         if bug.status == 'RESOLVED':
@@ -98,7 +102,8 @@ if doSubmission:
                 fb.resolve(ixBug=response.case['ixbug'], ixStatus=bug.fogStatus)
                 fb.close(ixBug=response.case['ixbug'])
             except fogbugz.FogBugzAPIError:
-                print 'API error'
+                print 'An API error has occurred, resolving/closing bug with bugzilla ID ' + bug.id + '.'
+                break   # break on API errors
 
 # print out some general info on completion
 print ('Processed ' + str(len(bugList.bugs)) + ' bugs...\n')
