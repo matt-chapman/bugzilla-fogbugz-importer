@@ -11,9 +11,10 @@ This script has been written for **Python 2.7**. It has not been tested with Pyt
 
 ###Dependencies
 
-1. *fogbugz.py* - FogBugz python library for their (awesome) XML API.
+1. *fogbugz.py* - FogBugz python library for their (awesome) XML API. [![fogbugz @ pypi](https://img.shields.io/pypi/v/fogbugz.svg)](https://pypi.python.org/pypi/fogbugz/0.9.6) 
 
-2. *tdqm.py* - For the pretty progress bar
+2. *tdqm.py* - For the pretty progress bar [![fogbugz @ pypi](https://img.shields.io/pypi/v/tqdm.svg)](https://pypi.python.org/pypi/tqdm/4.7.6) 
+
 
 ###Fogbugz & Bugzilla Preparation
 
