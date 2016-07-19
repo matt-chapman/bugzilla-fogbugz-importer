@@ -1,8 +1,9 @@
 # Bugzilla -> FogBugz Importer
 
 ##What is this?
-This Python script was born out of a need to migrate data I already had in a long-running Bugzilla instance, to a new hosted FogBugz solution.
-It is fairly barebones, but it does work quite well.
+This Python script was born out of a need to migrate data I already had in a long-running Bugzilla instance, to a new hosted FogBugz solution. It is fairly barebones, but it does work quite well.
+
+This is the first thing I have ever written in Python. It isn't pretty, I know. If you want to make changes or improvements, please submit a pull request, I would be glad to have some criticism!
 
 ##How do I use it?
 
