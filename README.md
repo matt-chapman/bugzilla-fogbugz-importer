@@ -5,6 +5,8 @@ This Python script was born out of a need to migrate data I already had in a lon
 
 This is the first thing I have ever written in Python. It isn't pretty, I know. If you want to make changes or improvements, please submit a pull request, I would be glad to have some criticism!
 
+This was originally written at and for [Ultamation](http://www.ultamation.com) and is reproduced here with their kind permission.
+
 ##How do I use it?
 
 This script has been written for **Python 2.7**. It has not been tested with Python 3.5.
