@@ -44,6 +44,7 @@ for currentbug in root.iter('bug'):
         commentObject.text = comment.find('thetext').text
         commentObject.when = comment.find('bug_when').text
 
+        # if no comments exist, make some placeholder text
         if commentObject.text is None:
             commentObject.text = 'No comment body. Check bugzilla for attachments'
 
@@ -69,6 +70,7 @@ if doSubmission:
     # log into the API
     fb = fogbugz.FogBugz(FbSettings.URL, FbSettings.TOKEN)
 
+    # iterate through the bugs, via tqdm for progress reporting
     for bug in tqdm(bugList.bugs):
 
         iterator += 1

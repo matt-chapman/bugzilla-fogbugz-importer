@@ -3,6 +3,8 @@ import Mappings
 
 # contains bug metadata
 class Bug:
+
+    # constructor
     def __init__(self):
         self.id = 0
         self.name = 'default_name'
@@ -16,16 +18,18 @@ class Bug:
         self.fogStatus = 0  # fogbugz specific status index
         self.comments = []
 
-    # map all metadata etc
+    # map all metadata to new fogbugz values
     def fixbug(self):
         self.assignee = Mappings.users.get(self.assignee, self.assignee)
         self.project = Mappings.projects.get(self.project, self.project)
 
+        # if the bug is 'resolved' we should handle this properly
         if self.status == 'RESOLVED':
             self.fogStatus = Mappings.resolutions.get(self.resolution, self.fogStatus)
         else:
             self.fogStatus = Mappings.statuses.get(self.status, self.fogStatus)
 
+        # set bug priority
         if self.priority is not None:
             self.priority = Mappings.priorities.get(self.priority, self.priority)
 
@@ -51,6 +55,7 @@ class Bug:
         if self.fogStatus is not None:
             print('FOGBUGZ STATUS: ' + str(self.fogStatus) + '\n')
 
+        # print comments associated with the bug
         for comment in self.comments:
             if len(self.comments) > 0:
                 if comment.who is not None and comment.when is not None:
@@ -58,6 +63,7 @@ class Bug:
                 if comment.text is not None:
                     print(comment.text + '\n\n')
 
+        # separator for cleanliness at end of bug
         print('====================\n')
 
 
