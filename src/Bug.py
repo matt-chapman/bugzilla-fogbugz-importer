@@ -19,7 +19,7 @@ class Bug:
         self.comments = []
 
     # map all metadata to new fogbugz values
-    def fixbug(self):
+    def fix_bug(self):
         self.assignee = Mappings.users.get(self.assignee, self.assignee)
         self.project = Mappings.projects.get(self.project, self.project)
 
@@ -34,7 +34,7 @@ class Bug:
             self.priority = Mappings.priorities.get(self.priority, self.priority)
 
     # utility method to print out bug details
-    def printdetails(self):
+    def print_details(self):
         if self.project is not None:
             print('PROJECT: ' + self.project)
 
