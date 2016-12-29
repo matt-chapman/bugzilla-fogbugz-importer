@@ -95,7 +95,7 @@ def run_import():
                     ixPriority=bug.priority
                 )
             except fogbugz.FogBugzAPIError:
-                print 'An API error has occurred, submitting bug with bugzilla ID ' + bug.id + '.'
+                print('An API error has occurred, submitting bug with bugzilla ID ' + bug.id + '.')
                 break  # break on API errors
 
             # if the current bug is resolved, attempt to resolve and close the last submitted bug
@@ -104,18 +104,18 @@ def run_import():
                     fb.resolve(ixBug=response.case['ixbug'], ixStatus=bug.fogStatus)
                     fb.close(ixBug=response.case['ixbug'])
                 except fogbugz.FogBugzAPIError:
-                    print 'An API error has occurred, resolving/closing bug with bugzilla ID ' + bug.id + '.'
+                    print('An API error has occurred, resolving/closing bug with bugzilla ID ' + bug.id + '.')
                     break  # break on API errors
 
     # print out some general info on completion
-    print ('Processed ' + str(len(bug_list.bugs)) + ' bugs...\n')
-    print ('Covering ' + str(len(bug_list.projects)) + ' projects:')
+    print('Processed ' + str(len(bug_list.bugs)) + ' bugs...\n')
+    print('Covering ' + str(len(bug_list.projects)) + ' projects:')
     for project in bug_list.projects:
-        print (project)
-    print ('\n')
-    print ('Assigned to ' + str(len(bug_list.users)) + ' users:')
+        print(project)
+    print('\n')
+    print('Assigned to ' + str(len(bug_list.users)) + ' users:')
     for user in bug_list.users:
-        print (user)
+        print(user)
 
 if __name__ == '__main__':
     run_import()
