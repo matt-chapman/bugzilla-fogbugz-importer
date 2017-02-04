@@ -46,7 +46,8 @@ def run_import():
 
             # if no comments exist, make some placeholder text
             if comment_object.text is None:
-                comment_object.text = 'No comment body. Check bugzilla for attachments'
+                comment_object.text = """No comment body. Check bugzilla
+                 for attachments"""
 
             # append comment to current bug's comment list
             bug_object.comments.append(comment_object)
@@ -98,7 +99,8 @@ def run_import():
                 )
             except fogbugz.FogBugzAPIError:
                 print(
-                    'An API error has occurred, submitting bug with bugzilla ID ' + bug.id + '.')
+                    """An API error has occurred, submitting bug with
+                     bugzilla ID """ + bug.id + '.')
                 break  # break on API errors
 
             # if the current bug is resolved, attempt to resolve and close the
@@ -110,7 +112,8 @@ def run_import():
                     fb.close(ixBug=response.case['ixbug'])
                 except fogbugz.FogBugzAPIError:
                     print(
-                        'An API error has occurred, resolving/closing bug with bugzilla ID ' + bug.id + '.')
+                        """An API error has occurred, resolving/closing
+                         bug with bugzilla ID """ + bug.id + '.')
                     break  # break on API errors
 
     # print out some general info on completion
