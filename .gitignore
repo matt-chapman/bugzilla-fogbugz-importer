@@ -39,3 +39,8 @@ Thumbs.db
 
 .idea/
 TestData/
+venv/
+
+*.sublime-project
+
+*.sublime-workspace

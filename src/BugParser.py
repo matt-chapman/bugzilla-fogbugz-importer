@@ -79,7 +79,8 @@ def run_import():
             # concat all the comments together
             if len(bug.comments) > 0:
                 for comment in bug.comments:
-                    comments += comment.who + ' said on ' + comment.when + ':\n----------\n' + comment.text + '\n\n'
+                    comments += comment.who + ' said on ' + comment.when + \
+                        ':\n----------\n' + comment.text + '\n\n'
             else:
                 comments = 'No comments.'
 
@@ -88,23 +89,28 @@ def run_import():
                 response = fb.new(
                     sProject=bug.project,
                     sTitle=bug.name,
-                    sEvent='Imported from Bugzilla. Original Bug ID: ' + bug.id + '\n\nOriginal comments: \n\n'
-                                                                                  '====================\n\n' + comments,
+                    sEvent='Imported from Bugzilla. Original Bug ID: ' +
+                    bug.id + '\n\nOriginal comments: \n\n'
+                    '====================\n\n' + comments,
                     sPersonAssignedTo=bug.assignee,
                     ixStatus=bug.fogStatus,
                     ixPriority=bug.priority
                 )
             except fogbugz.FogBugzAPIError:
-                print('An API error has occurred, submitting bug with bugzilla ID ' + bug.id + '.')
+                print(
+                    'An API error has occurred, submitting bug with bugzilla ID ' + bug.id + '.')
                 break  # break on API errors
 
-            # if the current bug is resolved, attempt to resolve and close the last submitted bug
+            # if the current bug is resolved, attempt to resolve and close the
+            # last submitted bug
             if bug.status == 'RESOLVED':
                 try:
-                    fb.resolve(ixBug=response.case['ixbug'], ixStatus=bug.fogStatus)
+                    fb.resolve(ixBug=response.case[
+                               'ixbug'], ixStatus=bug.fogStatus)
                     fb.close(ixBug=response.case['ixbug'])
                 except fogbugz.FogBugzAPIError:
-                    print('An API error has occurred, resolving/closing bug with bugzilla ID ' + bug.id + '.')
+                    print(
+                        'An API error has occurred, resolving/closing bug with bugzilla ID ' + bug.id + '.')
                     break  # break on API errors
 
     # print out some general info on completion
@@ -116,6 +122,7 @@ def run_import():
     print('Assigned to ' + str(len(bug_list.users)) + ' users:')
     for user in bug_list.users:
         print(user)
+
 
 if __name__ == '__main__':
     run_import()
