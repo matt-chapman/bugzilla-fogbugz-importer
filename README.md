@@ -1,24 +1,24 @@
 # Bugzilla -> FogBugz Importer
 
-##What is this?
+## What is this?
 This Python script was born out of a need to migrate data I already had in a long-running Bugzilla instance, to a new hosted FogBugz solution. It is fairly barebones, but it does work quite well.
 
 This is the first thing I have ever written in Python. It isn't pretty, I know. If you want to make changes or improvements, please submit a pull request, I would be glad to have some criticism!
 
 This was originally written at and for [Ultamation](http://www.ultamation.com) and is reproduced here with their kind permission.
 
-##How do I use it?
+## How do I use it?
 
 This script has been written for **Python 2.7**. It has not been tested with Python 3.5.
 
-###Dependencies
+### Dependencies
 
 1. *fogbugz.py* - FogBugz python library for their (awesome) XML API. [![fogbugz @ pypi](https://img.shields.io/pypi/v/fogbugz.svg)](https://pypi.python.org/pypi/fogbugz/0.9.6) 
 
 2. *tdqm.py* - For the pretty progress bar [![fogbugz @ pypi](https://img.shields.io/pypi/v/tqdm.svg)](https://pypi.python.org/pypi/tqdm/4.7.6) 
 
 
-###Fogbugz & Bugzilla Preparation
+### Fogbugz & Bugzilla Preparation
 
 Because Bugzilla and Fogbugz both use different workflows, there is some preparation that needs to be done.
 
@@ -39,7 +39,7 @@ Fill your API details, along with the path to your XML export from Bugzilla in t
 
 Run *BugParser.py* to begin the import. You can do a dry parsing run by setting 'doSubmission' at the top of *BugParser.py* to 'False'. To print the contents of each bug, you can set 'printDebug' to 'True'.
 
-##Considerations
+## Considerations
 
 I do not provide any warranty for this, obviously. Execute at your own risk, and do your own testing before executing this script against a production instance of Fogbugz. Running this script repeatedly *will* create duplicate bugs. You have been warned.
 
