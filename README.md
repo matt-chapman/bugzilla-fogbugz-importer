@@ -1,5 +1,7 @@
 # Bugzilla -> FogBugz Importer
 
+*This repository is no longer maintained, and may not work as expected. Please contact me on GitHub or file an issue if you encounter problems*
+
 ## What is this?
 This Python script was born out of a need to migrate data I already had in a long-running Bugzilla instance, to a new hosted FogBugz solution. It is fairly barebones, but it does work quite well.
 
