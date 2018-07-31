@@ -9,6 +9,8 @@ This is the first thing I have ever written in Python. It isn't pretty, I know. 
 
 This was originally written at and for [Ultamation](http://www.ultamation.com) and is reproduced here with their kind permission.
 
+This is one of the very first Python scripts I ever wrote, so please excuse the lack of `PEP8` compliance in places, and the lack of proper `setup.py`!
+
 ## How do I use it?
 
 This script has been written for **Python 2.7**. It has not been tested with Python 3.5.
